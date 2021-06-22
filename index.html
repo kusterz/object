@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Object - Pirouette</title>
+  <style type="text/css" media="screen">
+
+    @font-face {
+      font-family: 'tiltortionregular';
+      src: url('tiltortion-webfont.woff2') format('woff2'),
+       url('tiltortion-webfont.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+}
+
+    body {
+      background-color: black;
+      color: white;
+      font-size: 12px;
+     background-repeat: no-repeat;
+    }
+
+    .button {
+      background-color: transparent;
+      color: black;
+      border: none;
+      font-family: Helvetica;
+      font-size: 20px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      text-decoration: none;
+      margin-top: 5px;
+      margin-left: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 2px solid;
+    }
+    .button:hover {
+      background-color: black ;
+    }
+    .button:after {
+      content: "";
+      background: #521410;
+      display: block;
+      position: absolute;
+      padding-top: 300%;
+      padding-left: 350%;
+      margin-left: -20px!important;
+      margin-top: -120%;
+      opacity: 0;
+      transition: all 0.8s
+    }
+    .button:active:after {
+      padding: 0;
+      margin: 0;
+      opacity: 1;
+      transition: 0s
+    }
+
+
+    #container {
+      width: 100%;
+      height: 1000px;
+      -webkit-perspective: 800;
+      -webkit-perspective-origin: 50% 225px;
+      margin: -10px;
+    }
+
+    .background {
+      position: fixed;
+      top:0px;
+      left: 5px;
+      height: 100%;
+      width: 100%;
+      z-index: -5;
+      object-fit: cover;
+      margin: 0;
+    }
+
+    #stage {
+      width: 100%;
+      height: 60%;
+      -webkit-transition: -webkit-transform 2s;
+      -webkit-transform-style: preserve-3d;
+    }
+
+    #shape {
+      position: relative;
+      top: 50%;
+      margin: 0 auto;
+      height: 200px;
+      width: 200px;
+      -webkit-transform-style: preserve-3d;
+    }
+
+    .pic {
+      position: absolute;
+      height: 200px;
+      width: 200px;
+      color: black;
+      -webkit-transition: -webkit-transform 4s, opacity 2s;
+      -webkit-backface-visibility: hidden;
+    }
+
+    #shape.backfaces .pic {
+      -webkit-backface-visibility: visible;
+    }
+
+    #shape {
+      -webkit-animation: spin1 4s infinite linear;
+    }
+
+    @-webkit-keyframes spin1 {
+      from { -webkit-transform: rotateY(0); }
+      to   { -webkit-transform: rotateY(-360deg); }
+    }
+
+
+    @-webkit-keyframes spin2 {
+      from { -webkit-transform: rotateX(0); }
+      to   { -webkit-transform: rotateX(-360deg); }
+    }
+
+    @-webkit-keyframes spin3 {
+      from { -webkit-transform: rotateZ(0); }
+      to   { -webkit-transform: rotateZ(-360deg); }
+    }
+
+    /* ---------- ring styles ------------- */
+    .ring > .one {
+      -webkit-transform: translateZ(380px);
+    }
+
+    .ring > .two {
+      -webkit-transform: rotateY(15deg) translateZ(380px);
+    }
+
+    .ring > .three {
+      -webkit-transform: rotateY(30deg) translateZ(380px);
+    }
+
+    .ring > .four {
+      -webkit-transform: rotateY(45deg) translateZ(380px);
+    }
+
+    .ring > .five {
+      -webkit-transform: rotateY(60deg) translateZ(380px);
+    }
+
+    .ring > .six {
+      -webkit-transform: rotateY(75deg) translateZ(380px);
+    }
+
+    .ring > .seven {
+      -webkit-transform: rotateY(90deg) translateZ(380px);
+    }
+
+    .ring > .eight {
+      -webkit-transform: rotateY(105deg) translateZ(380px);
+    }
+
+    .ring > .nine {
+      -webkit-transform: rotateY(120deg) translateZ(380px);
+    }
+
+    .ring > .ten {
+      -webkit-transform: rotateY(135deg) translateZ(380px);
+    }
+
+    .ring > .eleven {
+      -webkit-transform: rotateY(150deg) translateZ(380px);
+    }
+
+    .ring > .twelve {
+      -webkit-transform: rotateY(165deg) translateZ(380px);
+    }
+
+    .ring > .thirteen {
+      -webkit-transform: rotateY(180deg) translateZ(380px);
+    }
+
+    .ring > .fourteen {
+      -webkit-transform: rotateY(195deg) translateZ(380px);
+    }
+
+    .ring > .fifteen {
+      -webkit-transform: rotateY(210deg) translateZ(380px);
+    }
+
+    .ring > .sixteen {
+      -webkit-transform: rotateY(225deg) translateZ(380px);
+    }
+
+    .ring > .seventeen {
+      -webkit-transform: rotateY(240deg) translateZ(380px);
+    }
+
+    .ring > .eighteen {
+      -webkit-transform: rotateY(255deg) translateZ(380px);
+    }
+
+    .ring > .nineteen {
+      -webkit-transform: rotateY(270deg) translateZ(380px);
+    }
+
+    .ring > .twenty {
+      -webkit-transform: rotateY(285deg) translateZ(380px);
+    }
+
+    .ring > .twentyone {
+      -webkit-transform: rotateY(300deg) translateZ(380px);
+    }
+
+    .ring > .twentytwo {
+      -webkit-transform: rotateY(315deg) translateZ(380px);
+    }
+
+    .ring > .twentythree {
+      -webkit-transform: rotateY(330deg) translateZ(380px);
+    }
+
+    .ring > .twentyfour {
+      -webkit-transform: rotateY(345deg) translateZ(380px);
+    }
+
+    .hover_img a {
+      position:relative;
+    }
+
+    .hover_img a span {
+      position:fixed;
+      display:none;
+      z-index:99;
+    }
+
+    .hover_img a:hover span {
+      display:block;
+    }
+
+    .rectangle {
+  height: 30px;
+  width: 110px;
+  background-color: #555;
+}
+
+.picture {
+  width: 400px;
+  height: auto;
+}
+
+
+  </style>
+  <script type="text/javascript" charset="utf-8">
+    function hasClassName(inElement, inClassName)
+    {
+        var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)');
+        return regExp.test(inElement.className);
+    }
+
+    function addClassName(inElement, inClassName)
+    {
+        if (!hasClassName(inElement, inClassName))
+            inElement.className = [inElement.className, inClassName].join(' ');
+    }
+
+    function removeClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName)) {
+            var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)', 'g');
+            var curClasses = inElement.className;
+            inElement.className = curClasses.replace(regExp, ' ');
+        }
+    }
+
+    function toggleClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName))
+            removeClassName(inElement, inClassName);
+        else
+            addClassName(inElement, inClassName);
+    }
+
+    function toggleShape()
+    {
+      var shape = document.getElementById('shape', 'shape2');
+      if (hasClassName(shape, 'ring', 'ring2')) {
+        removeClassName(shape, 'ring', 'ring2');
+        addClassName(shape, 'cube',);
+      } else {
+        removeClassName(shape, 'cube');
+        addClassName(shape, 'ring', 'ring2');
+      }
+
+      // Move the ring back in Z so it's not so in-your-face.
+      var stage = document.getElementById('stage', 'stage2');
+      if (hasClassName(shape, 'ring', 'ring2'))
+        stage.style.webkitTransform = 'translateZ(-200px)';
+      else
+        stage.style.webkitTransform = '';
+    }
+
+    function pictureChange(path) {
+  console.log(path);
+  document.getElementById("theImage").src=path;
+  }
+  </script>
+</head>
+<body>
+
+
+
+
+
+  <div id="container">
+      <div><button class="button" onclick="toggleShape()">PIROUETTE</button></div>
+    <div id="stage">
+
+      <div id="shape" class="cube backfaces">
+        <div class="pic one hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif1.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic two hover_img "><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif2.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic three hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif3.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic four hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif4.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic five hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif5.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic six hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif6.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic seven hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif7.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic eight hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif8.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic nine hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif9.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic ten hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif10.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic eleven hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif11.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic twelve hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif12.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic thirteen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif13.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic fourteen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif14.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic fifteen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif15.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic sixteen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif16.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic seventeen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif17.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic eighteen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif18.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic nineteen hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif19.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic twenty hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif20.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic twentyone hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif21.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic twentytwo hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif12.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic twentythree hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif7.gif" alt="image" height="500px"></span></a></div>
+        <div class="pic twentyfour hover_img"><a href="#"><div class="rectangle"></div><span><img class="picture" src="gif20.gif" alt="image" height="500px"></span></a></div>
+
+
+      </div>
+
+    </div>
+
+    <img src="background2.gif" class="background">
+
+
+  </div>
+
+
+
+
+
+</body>
+</html>
